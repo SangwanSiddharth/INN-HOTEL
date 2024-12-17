@@ -43,7 +43,7 @@ def main():
     wkday_lambda = (lambda x: 0 if x == 'Mon' else 1 if x == 'Tue' else 2 if x == 'Wed' else 3 if x == 'Thu' else 4 if x == 'Fri' else 5 if x == 'Sat' else 6)
     wkday = wkday_lambda(st.selectbox('What is the weekday of arrival', ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']))
 
-    trans_data = pt.transform([[lt, price]])
+    trans_data = pt.transform([[lt_input, price]])
     lt_t = trans_data[0][0]
     price_t = trans_data[0][1]
 
