@@ -30,7 +30,7 @@ def main():
     adult=st.radio('Select the number of adults in booking',[0,1,2,3,4])
     wkd=st.text_input('Enter the number of weekend nights in the booking')
     wk=st.text_input('Enter the number of week nights in the booking')
-    park=(lambda x:1 if x=='Yes' else 0)st.selectbox('Is parking included in the booking',['Yes','No'])
+    park=(lambda x:1 if x=='Yes' else 0)(st.selectbox('Is parking included in the booking',['Yes','No']))
     month=st.slider('What will be the month of arrival',min_value=1,max_value=12,step=1)
     day=st.slider('What will be the day of arrival',min_value=1,max_value=31,step=1)
     wkday_lambda=(lambda x:9 if x=='Mon' else 1 if x=='Tue' else 2 if x=='Wed' else 3 if x=='Thus' else 4 if x=='Fri' else 5 if x=='Fri' else 6 if x=='Sat' else 6)
