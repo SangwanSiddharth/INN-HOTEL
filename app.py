@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import pickle
-from sklearn.preprocessing import PowerTransformer
+from sklearn.preprocessing import PowerTransformer as pt
 
 # Load the model and transformer
 with open('final_model_rf.pkl', 'rb') as file:
@@ -23,18 +23,18 @@ def prediction(input_list):
 def main():
     st.title('INN HOTEL GROUPS')
 
-    lt_input = float(st.text_input('Enter the lead time.'))
+    lt_input = st.number_input('Enter the lead time.',format='%.4f')
 
     mst = (lambda x: 1 if x == 'Online' else 0)(st.selectbox('Choose the type of booking', ['Online', 'Offline']))
     spcl = st.selectbox('Select the no. of special requests made', [0, 1, 2, 3, 4, 5])
     
-    price_input = float(st.text_input('Enter the price offered for the room.'))
+    price_input = st.number_input('Enter the price offered for the room.',format='%.4f')
     
     adult = st.radio('Select the number of adults in booking', [0, 1, 2, 3, 4])
 
-    wkd_input = int(st.text_input('Enter the number of weekend nights in the booking'))
+    wkd_input = st.number_input('Enter the number of weekend nights in the booking',format='%.4f')
 
-    wk_input = int(st.text_input('Enter the number of week nights in the booking'))
+    wk_input = st.number_input('Enter the number of week nights in the booking',format='%.4f')
 
     park = (lambda x: 1 if x == 'Yes' else 0)(st.selectbox('Is parking included in the booking', ['Yes', 'No']))
     month = st.slider('What will be the month of arrival', min_value=1, max_value=12, step=1)
