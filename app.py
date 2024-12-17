@@ -22,7 +22,7 @@ def prediction(input_list):
 # Define the main function
 def main():
     st.title('INN HOTEL GROUPS')
-    
+
     lt_input = st.text_input('Enter the lead time.')
     if lt_input:
         try:
@@ -33,7 +33,7 @@ def main():
     else:
         st.error("Please enter the lead time.")
         return
-    
+
     mst = (lambda x: 1 if x == 'Online' else 0)(st.selectbox('Choose the type of booking', ['Online', 'Offline']))
     spcl = st.selectbox('Select the no. of special requests made', [0, 1, 2, 3, 4, 5])
     
@@ -49,6 +49,7 @@ def main():
         return
     
     adult = st.radio('Select the number of adults in booking', [0, 1, 2, 3, 4])
+
     wkd_input = st.text_input('Enter the number of weekend nights in the booking')
     if wkd_input:
         try:
@@ -59,7 +60,7 @@ def main():
     else:
         st.error("Please enter the number of weekend nights.")
         return
-    
+
     wk_input = st.text_input('Enter the number of week nights in the booking')
     if wk_input:
         try:
@@ -70,11 +71,11 @@ def main():
     else:
         st.error("Please enter the number of week nights.")
         return
-    
+
     park = (lambda x: 1 if x == 'Yes' else 0)(st.selectbox('Is parking included in the booking', ['Yes', 'No']))
     month = st.slider('What will be the month of arrival', min_value=1, max_value=12, step=1)
     day = st.slider('What will be the day of arrival', min_value=1, max_value=31, step=1)
-    
+
     wkday_lambda = (lambda x: 0 if x == 'Mon' else 1 if x == 'Tue' else 2 if x == 'Wed' else 3 if x == 'Thu' else 4 if x == 'Fri' else 5 if x == 'Sat' else 6)
     wkday = wkday_lambda(st.selectbox('What is the weekday of arrival', ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']))
 
