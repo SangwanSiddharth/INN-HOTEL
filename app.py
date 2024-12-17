@@ -23,13 +23,54 @@ def prediction(input_list):
 def main():
     st.title('INN HOTEL GROUPS')
     
-    lt = float(st.text_input('Enter the lead time.'))
+    lt_input = st.text_input('Enter the lead time.')
+    if lt_input:
+        try:
+            lt = float(lt_input)
+        except ValueError:
+            st.error("Please enter a valid number for lead time.")
+            return
+    else:
+        st.error("Please enter the lead time.")
+        return
+    
     mst = (lambda x: 1 if x == 'Online' else 0)(st.selectbox('Choose the type of booking', ['Online', 'Offline']))
     spcl = st.selectbox('Select the no. of special requests made', [0, 1, 2, 3, 4, 5])
-    price = float(st.text_input('Enter the price offered for the room.'))
+    
+    price_input = st.text_input('Enter the price offered for the room.')
+    if price_input:
+        try:
+            price = float(price_input)
+        except ValueError:
+            st.error("Please enter a valid number for price.")
+            return
+    else:
+        st.error("Please enter the price.")
+        return
+    
     adult = st.radio('Select the number of adults in booking', [0, 1, 2, 3, 4])
-    wkd = float(st.text_input('Enter the number of weekend nights in the booking'))
-    wk = float(st.text_input('Enter the number of week nights in the booking'))
+    wkd_input = st.text_input('Enter the number of weekend nights in the booking')
+    if wkd_input:
+        try:
+            wkd = float(wkd_input)
+        except ValueError:
+            st.error("Please enter a valid number for weekend nights.")
+            return
+    else:
+        st.error("Please enter the number of weekend nights.")
+        return
+    
+    wk_input = st.text_input('Enter the number of week nights in the booking')
+    if wk_input:
+        try:
+            wk = float(wk_input)
+        except ValueError:
+            st.error("Please enter a valid number for week nights.")
+            return
+    else:
+        st.error("Please enter the number of week nights.")
+        return
+    
     park = (lambda x: 1 if x == 'Yes' else 0)(st.selectbox('Is parking included in the booking', ['Yes', 'No']))
     month = st.slider('What will be the month of arrival', min_value=1, max_value=12, step=1)
     day = st.slider('What will be the day of arrival', min_value=1, max_value=31, step=1)
