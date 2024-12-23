@@ -11,12 +11,12 @@ with open('transformer.pkl', 'rb') as file:
     pt = pickle.load(file)
 
 def prediction(input_list):
-    tran_data = pt.transform([[input_list[0],input_list[3]]])
+    tran_data = pt.transform([[input_list[0], input_list[3]]])
     input_list[0] = tran_data[0][0]
     input_list[3] = tran_data[0][1]
 
-    input_list = np.array(input_list,dtype=object)
-      
+    input_list = np.array(input_list, dtype=object)
+    
     # Make prediction
     pred = model.predict_proba([input_list])[:, 1][0]
     
@@ -28,13 +28,15 @@ def prediction(input_list):
     
 def main():
     st.title('INN HOTEL GROUP')
-    lt = st.text_input('Enter the lead time.')
+    
+    # Use number input for numeric fields like lead time and price
+    lt = st.number_input('Enter the lead time.', min_value=0.0)
     mst = (lambda x: 1 if x == 'Online' else 0)(st.selectbox('Enter the type of booking', ['Online', 'Offline']))
     spcl = st.selectbox('Select the no of special requests made', [0, 1, 2, 3, 4, 5])
-    price = st.text_input('Enter the price offered for the room')
+    price = st.number_input('Enter the price offered for the room', min_value=0.0)
     adults = st.selectbox('Select the no adults in booking', [0, 1, 2, 3, 4])
-    weekend = st.text_input('Enter the weekend nights in the booking')
-    weekday = st.text_input('Enter the week nights in booking')
+    weekend = st.number_input('Enter the weekend nights in the booking', min_value=0)
+    weekday = st.number_input('Enter the week nights in booking', min_value=0)
     parking = (lambda x: 1 if x == 'Yes' else 0)(st.selectbox('Is parking included in the booking', ['Yes', 'No']))
     month = st.slider('What will be month of arrival', min_value=1, max_value=12, step=1)
     day = st.slider('What will be day of arrival', min_value=1, max_value=31, step=1)
@@ -45,17 +47,15 @@ def main():
     inp_list = [lt, mst, spcl, price, adults, weekend, parking, weekday, month, day, weekd]
     
     if st.button('Predict'):
-        if lt == '' or price == '':
-            st.error("Lead time and price cannot be empty.")
+        if lt == 0.0 or price == 0.0:  # Check if lead time and price are provided
+            st.error("Lead time and price cannot be empty or zero.")
         else:
             try:
-                # Convert inputs to appropriate types
-                inp_list[0] = float(lt)
-                inp_list[3] = float(price)
+                # Make the prediction
                 response = prediction(inp_list)
                 st.success(response)
             except ValueError:
-                st.error("Please enter valid numeric values for lead time and price.")
+                st.error("An error occurred during the prediction. Please check your inputs.")
         
 if __name__ == '__main__':
     main()
