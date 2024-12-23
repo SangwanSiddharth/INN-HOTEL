@@ -12,8 +12,8 @@ with open('transformer.pkl', 'rb') as file:
 
 def prediction(input_list):
     # Convert lead time and price to float
-    lead_time = float(input_list[0])
-    price = float(input_list[3])
+    #lead_time = float(input_list[0])
+    #price = float(input_list[3])
 
     # Transform the lead time and price
     tran_data = pt.transform([[lead_time, price]])
