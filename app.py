@@ -10,6 +10,7 @@ with open('transformer.pkl', 'rb') as file:
     pt = pickle.load(file)
 
 def prediction(input_list):
+    print("Raw input list:", input_list)  # Debugging statement
     # Explicitly convert lead time and price to float
     lead_time = float(input_list[0])
     price = float(input_list[3])
@@ -19,6 +20,7 @@ def prediction(input_list):
     input_list[3] = tran_data[0][1]
 
     input_list = np.array(input_list, dtype=object)
+    print("Transformed input list:", input_list)  # Debugging statement
       
     pred = model.predict_proba([input_list])[:, 1][0]
     
