@@ -9,9 +9,12 @@ with open('final_model_rf.pkl', 'rb') as file:
 with open('transformer.pkl', 'rb') as file:
     pt = pickle.load(file)
 
-
 def prediction(input_list):
-    tran_data = pt.transform([[float(input_list[0]), float(input_list[3])]])
+    # Explicitly convert lead time and price to float
+    lead_time = float(input_list[0])
+    price = float(input_list[3])
+
+    tran_data = pt.transform([[lead_time, price]])
     input_list[0] = tran_data[0][0]
     input_list[3] = tran_data[0][1]
 
@@ -23,7 +26,6 @@ def prediction(input_list):
         return f'This booking is more likely to get canceled: Chances {round(pred, 2)}'
     else:
         return f'This booking is less likely to get canceled: Chances {round(pred, 2)}'
-
 
 def main():
     st.title('INN HOTEL GROUP')
@@ -41,7 +43,7 @@ def main():
                     else 4 if x == 'Fri' else 5 if x == 'Sat' else 6)
     wkday = wkday_lambda(st.selectbox('What is the weekday of arrival', ['Mon', 'Tue', 'Wed', 'Thus', 'Fri', 'Sat', 'Sun']))
 
-    inp_list = [lt, mst, spcl, price, adult, wkd, park, wk, month, day, wkday]
+    inp_list = [lt, mst, spcl, price, adult, wkd, wk, park, month, day, wkday]
     
     if st.button('Predict'):
         response = prediction(inp_list)
